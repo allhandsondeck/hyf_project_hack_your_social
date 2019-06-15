@@ -6,8 +6,8 @@ import { login } from '../../actions/auth';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: ''
+    email: '',
+    password: ''
   });
 
   const { email, password } = formData;
@@ -19,7 +19,6 @@ const Login = ({ login, isAuthenticated }) => {
     login(email, password);
   };
 
-  // Redirect if logged in
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
@@ -48,29 +47,24 @@ const Login = ({ login, isAuthenticated }) => {
             name="password"
             value={password}
             onChange={e => onChange(e)}
-            required
             minLength="6"
           />
         </div>
-
         <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <p className="my-1">
-        Don't have an account ? <Link to="/register">Sign Up</Link>
+        Don't have an account? <Link to="/register">Sign Up</Link>
       </p>
     </Fragment>
   );
 };
-
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool
 };
-
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
-
 export default connect(
   mapStateToProps,
   { login }
